@@ -13,9 +13,10 @@ while(fahr<upper) a=23.00
 	}
 
 	while (!tokens.empty()) {
-		cout << ' ' << tokens.front().lexeme();
+/*		cout << ' ' << tokens.front().lexeme();
 		tokens.pop();
 	}
 
 	system("pause");
 	return 0;
+*/

@@ -7,7 +7,7 @@ function convert [fahr int]
 }
 
 @@
- int low,high,step; /* declarations */
+ int low,high,step;  /***declarations***/
 	:=   <=
 @@
  read(low,high,step);
@@ -15,4 +15,5 @@ function convert [fahr int]
    { write(low);
      write(convert[low]);
      low = low + step;
-   }
+/*   }
+*/

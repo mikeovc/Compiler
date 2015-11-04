@@ -30,6 +30,7 @@ Token LexicalAnalyzer::lexer() {
 		else if (i < text.size() - 1 && text[i] == '/' && text[i + 1] == '*') {
 			i = text.find("*/");
 			i = (i == string::npos) ? text.size() : i += 2;
+			text.erase(0, i);
 		}
 
 		// tokenize seperators and operators with more than one character
@@ -57,6 +58,7 @@ Token LexicalAnalyzer::lexer() {
 			return Token(token);
 		}
 	}
+	return Token("");
 }
 
 // Return true if character is white space
@@ -100,7 +102,7 @@ void LexicalAnalyzer::initKnownTokenTypes(list<Token>& tokes) {
 
 // Return true if no text remaining:
 bool LexicalAnalyzer::analyzed() {
-	if (text.empty() || text.find_first_not_of(" \t\n") == string::npos) {
+	if (text.empty() || text.find_first_not_of(" \t\n\r") == string::npos) {
 		return true;
 	}
 	return false;

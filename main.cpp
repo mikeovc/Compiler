@@ -18,6 +18,7 @@ int main() {
 	while (!la.analyzed()) {
 		tokens.push_back(la.lexer());
 	}
+	if (tokens.back().lexeme() == "") { tokens.pop_back(); }
 	la.initKnownTokenTypes(tokens);
 
 	Fsm typeSetter;
