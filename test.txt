@@ -1,0 +1,21 @@
+while(fahr<upper) a=23.00
+/* sfdsdf */ if
+
+	ifstream f;
+	f.open("test.txt");
+	string line = "";
+
+	while (!f.eof()) {
+		getline(f, line);
+		tokenize(lexicalUnits, line, tokens);
+		Token t("\n");
+		tokens.push(t);
+	}
+
+	while (!tokens.empty()) {
+		cout << ' ' << tokens.front().lexeme();
+		tokens.pop();
+	}
+
+	system("pause");
+	return 0;

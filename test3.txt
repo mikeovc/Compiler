@@ -1,0 +1,15 @@
+bool Fsm::isRealNumber(const std::string& lexeme) {
+	currentState = 0;
+	for (size_t i = 0; i < lexeme.size(); i++) {
+		if (isdigit(lexeme[i])) {
+			currentState = realFSM[currentState][DIGIT];
+		}
+		else if (lexeme[i] == '.') {
+			currentState = realFSM[currentState][PERIOD];
+		}
+		else {
+			currentState = 4;	// rejected state for real number FSM
+		}
+	}
+	if (currentState == 3) { return true; }
+	else { return false; }
