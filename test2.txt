@@ -1,20 +1,22 @@
-/* this is comment for this sample cde which
-converts F to C */
+while(fahr<upper) a=23.00
+/* sfdsdf */ if
 
-function convert [fahr int]
-{
-	return 5*(fahr-32)/9;
-}
+	ifstream f;
+	f.open("test.txt");
+	string line = "";
 
-@@
- int low,high,step;  /***declarations***/
-	:=   <=
-@@
- read(low,high,step);
- while(low<high) do
-   { write(low);
-     write(convert[low]);
-     low = low + step;
-   }
-/*
+	while (!f.eof()) {
+		getline(f, line);
+		tokenize(lexicalUnits, line, tokens);
+		Token t("\n");
+		tokens.push(t);
+	}
+
+	while (!tokens.empty()) {
+/*		cout << ' ' << tokens.front().lexeme();
+		tokens.pop();
+	}
+
+	system("pause");
+	return 0;
 */

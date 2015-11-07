@@ -6,6 +6,7 @@
 #include "Token.h"
 #include "Fsm.h"
 #include "LexicalAnalyzer.h"
+#include "SyntaxAnalyzer.h"
 
 string getText();
 void display(list<Token>& items);
@@ -15,22 +16,23 @@ int main() {
 	list<Token> tokens;
 	LexicalAnalyzer la(code);
 
-	// Tokenize the entire text (lines 18 - 28)
+	// Lines 18-28: tokenize the entire text, store in tokens list
 	while (!la.analyzed()) {
 		tokens.push_back(la.lexer());
 	}
-	if (tokens.back().lexeme() == "") { tokens.pop_back(); }
 	la.initKnownTokenTypes(tokens);
 
 	Fsm typeSetter;
 	for (auto it = tokens.begin(); it != tokens.end(); ++it) {
 		typeSetter.identify(*it);
 	}
+	if (tokens.back().lexeme() == "") { tokens.back().type("eof"); }
+	else { tokens.push_back(Token("", "eof")); }
 	
+	SyntaxAnalyzer sa(tokens);
+	sa.analyze();
 
-
-
-	display(tokens);
+	//display(tokens);
 
 	system("pause");
 	return 0;

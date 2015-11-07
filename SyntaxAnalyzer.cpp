@@ -2,126 +2,37 @@
 
 const int TERMINAL = 0, NONTERMINAL = 1, NEW_PRODUCTION = 2;
 
-SyntaxAnalyzer::SyntaxAnalyzer(list<Token> t)
-: tokens(t) {
+SyntaxAnalyzer::SyntaxAnalyzer(list<Token> t) {
+	tokens = t;
 	currentToken = tokens.front();
-	fillSymbols();
 }
 
-void SyntaxAnalyzer::fillSymbols() {
-	symbols["<Rat15F>"] = NONTERMINAL;
-	symbols["<Opt Function Definitions>"] = NONTERMINAL;
-	symbols["<Function Definitions>"] = NONTERMINAL;
-	symbols["<Function Definitions Prime>"] = NONTERMINAL;
-	symbols["<Function>"] = NONTERMINAL;
-	symbols["<Opt Parameter List>"] = NONTERMINAL;
-	symbols["<Parameter List>"] = NONTERMINAL;
-	symbols["<Parameter List Prime>"] = NONTERMINAL;
-	symbols["<Parameter>"] = NONTERMINAL;
-	symbols["<Qualifier>"] = NONTERMINAL;
-	symbols["<Body>"] = NONTERMINAL;
-	symbols["<Opt Declaration List>"] = NONTERMINAL;
-	symbols["<Declaration List>"] = NONTERMINAL;
-	symbols["<Declaration List Prime>"] = NONTERMINAL;
-	symbols["<Declaration>"] = NONTERMINAL;
-	symbols["<IDs>"] = NONTERMINAL;
-	symbols["<IDs Prime>"] = NONTERMINAL;
-	symbols["<Statement List>"] = NONTERMINAL;
-	symbols["<Statement List Prime>"] = NONTERMINAL;
-	symbols["<Statement>"] = NONTERMINAL;
-	symbols["<Compound>"] = NONTERMINAL;
-	symbols["<Assign>"] = NONTERMINAL;
-	symbols["<If>"] = NONTERMINAL;
-	symbols["<If Prime>"] = NONTERMINAL;
-	symbols["<Return>"] = NONTERMINAL;
-	symbols["<Return Prime>"] = NONTERMINAL;
-	symbols["<Write>"] = NONTERMINAL;
-	symbols["<Read>"] = NONTERMINAL;
-	symbols["<While>"] = NONTERMINAL;
-	symbols["<Condition>"] = NONTERMINAL;
-	symbols["<Relop>"] = NONTERMINAL;
-	symbols["<Expression>"] = NONTERMINAL;
-	symbols["<Expression Prime>"] = NONTERMINAL;
-	symbols["<Term>"] = NONTERMINAL;
-	symbols["<Term Prime>"] = NONTERMINAL;
-	symbols["<Factor>"] = NONTERMINAL;
-	symbols["<Primary>"] = NONTERMINAL;
-	symbols["<Primary Prime>"] = NONTERMINAL;
-
-	symbols["identifier"] = TERMINAL;
-	symbols["real"] = TERMINAL;
-	symbols["integer"] = TERMINAL;
-	symbols["="] = TERMINAL;
-	symbols["!="] = TERMINAL;
-	symbols["<"] = TERMINAL;
-	symbols[">"] = TERMINAL;
-	symbols["=>"] = TERMINAL;
-	symbols["<="] = TERMINAL;
-	symbols["*"] = TERMINAL;
-	symbols["-"] = TERMINAL;
-	symbols["+"] = TERMINAL;
-	symbols["/"] = TERMINAL;
-	symbols[":="] = TERMINAL;
-	symbols["boolean"] = TERMINAL;
-	symbols["real"] = TERMINAL;
-	symbols["function"] = TERMINAL;
-	symbols["int"] = TERMINAL;
-	symbols["if"] = TERMINAL;
-	symbols["endif"] = TERMINAL;
-	symbols["else"] = TERMINAL;
-	symbols["return"] = TERMINAL;
-	symbols["write"] = TERMINAL;
-	symbols["read"] = TERMINAL;
-	symbols["while"] = TERMINAL;
-	symbols["do"] = TERMINAL;
-	symbols["true"] = TERMINAL;
-	symbols["false"] = TERMINAL;
-	symbols["@@"] = TERMINAL;
-	symbols["["] = TERMINAL;
-	symbols["]"] = TERMINAL;
-	symbols["("] = TERMINAL;
-	symbols[")"] = TERMINAL;
-	symbols["{"] = TERMINAL;
-	symbols["}"] = TERMINAL;
-	symbols[";"] = TERMINAL;
-	symbols[","] = TERMINAL;
-	symbols["Empty"] = TERMINAL;
-
-	symbols["|"] = NEW_PRODUCTION;
+void SyntaxAnalyzer::analyze() {
+	rat15F();
 }
-
-//void SyntaxAnalyzer::fillRuleSet() {
-//	ruleSet["<Rat15F>"] = { symbols["<Opt Function Definitions>"], symbols["@@"], 
-//						  symbols["<Opt Declaration List>"], symbols["<Statement List>"] };
-//	ruleSet["<Opt Function Definitions>"] = { symbols["<Function Definitions>"], symbols["|"],
-//											symbols["Empty"] };
-//	ruleSet["<Function Definitions>"] = { symbols["<Function>"], symbols["|"],
-//										symbols["<Function Definitions Prime>"] };
-//	ruleSet["<Function Definitions Prime>"] = { symbols["<Function>"], symbols["<Function Definitions>"] };
-//	ruleSet["<Function>"] = { symbols["function"] };
-//}
-
-//void SyntaxAnalyzer::fillRuleSet() {
-//	ruleSet["<Rat15F>"] = 
-//}
 
 void SyntaxAnalyzer::newToken() {
+	cout << endl;
 	tokens.pop_front();
 	currentToken = tokens.front();
 }
 
 void SyntaxAnalyzer::errorMessage(const string& expected) {
 	cout << "Error after token \"" << currentToken.lexeme() 
-		<< "\". First of \"" << expected << "\" expected.";
+		<< "\". First of \"" << expected << "\" expected." << endl;
 	system("pause");
 }
 
 void SyntaxAnalyzer::rat15F() {
-	cout << "<Rat15F> -> <Opt Function Definitions> \n@@ <Opt Declaration List> \n"
-		<< "\t@@ <Statement List>" << endl;
+	cout << endl << currentToken << endl;
+
+	cout << "<Rat15F> -> <Opt Function Definitions> \n\t\t@@ <Opt Declaration List> \n"
+		<< "\t\t@@ <Statement List>" << endl;
 	optFunDefs();
 
 	if (currentToken.lexeme() == "@@") {
+		cout << "<Rat15F> -> <Opt Function Definitions> \n\t\t@@ <Opt Declaration List> \n"
+			<< "\t\t@@ <Statement List>" << endl;
 		newToken();
 		cout << currentToken << endl;
 	}
@@ -133,6 +44,8 @@ void SyntaxAnalyzer::rat15F() {
 	optDeclList();
 
 	if (currentToken.lexeme() == "@@") {
+		cout << "<Rat15F> -> <Opt Function Definitions> \n\t\t@@ <Opt Declaration List> \n"
+			<< "\t\t@@ <Statement List>" << endl;
 		newToken();
 		cout << currentToken << endl;
 	}
@@ -142,6 +55,13 @@ void SyntaxAnalyzer::rat15F() {
 	}
 
 	statementList();
+
+	if (currentToken.type() == "eof") {
+		cout << "Completed. Syntax correct!" << endl;
+	}
+	else {
+		cout << "Error. No more tokens were expected." << endl;
+	}
 }
 
 void SyntaxAnalyzer::optFunDefs() {
@@ -173,7 +93,7 @@ void SyntaxAnalyzer::funDefsPrime() {
 void SyntaxAnalyzer::fun() {
 	if (currentToken.lexeme() == "function") {
 		cout << "<Function> -> function <Identifier> [ <Opt Parameter List> ]\n"
-			<< "\t<Opt Declaration List>" "<Body>" << endl;
+			<< "\t\t<Opt Declaration List>" "<Body>" << endl;
 		newToken();
 		cout << currentToken << endl;
 	}
@@ -282,8 +202,16 @@ void SyntaxAnalyzer::optDeclList() {
 }
 
 void SyntaxAnalyzer::declList() {
-	cout << "<Declaration List> -> <Declaration> <Declaration List>'" << endl;
+	cout << "<Declaration List> -> <Declaration> ; <Declaration List>'" << endl;
 	decl();
+
+	if (currentToken.lexeme() == ";") {
+		cout << "<Declaration List> -> <Declaration> ; <Declaration List>'" << endl;
+		newToken();
+		cout << currentToken << endl;
+	}
+	else { errorMessage(";"); }
+	
 	declListPrime();
 }
 
@@ -311,13 +239,21 @@ void SyntaxAnalyzer::ids() {
 		cout << currentToken << endl;
 	}
 	else { errorMessage("<Identifier>"); }
+
 	idsPrime();
 }
 
 void SyntaxAnalyzer::idsPrime() {
-	if (currentToken.type() == "identifier") {
-		cout << "<IDs>' -> <IDs>" << endl;
-		ids();
+	if (currentToken.lexeme() == ",") {
+		cout << "<IDs>' -> , <IDs>" << endl;
+		newToken();
+		cout << currentToken << endl;
+
+		if (currentToken.type() == "identifier") {
+			cout << "<IDs>' -> , <IDs>" << endl;
+			ids();
+		}
+		else { errorMessage("<Identifier>"); }
 	}
 	else {
 		cout << "<IDs>' -> <Empty>" << endl;
@@ -395,7 +331,7 @@ void SyntaxAnalyzer::compound() {
 
 void SyntaxAnalyzer::assign() {
 	if (currentToken.type() == "identifier") {
-		cout << "<Assign> -> <Identifier> := <Expression>";
+		cout << "<Assign> -> <Identifier> := <Expression> ;" << endl;
 		newToken();
 		cout << currentToken << endl;
 	}
@@ -408,6 +344,13 @@ void SyntaxAnalyzer::assign() {
 	else { errorMessage(":="); }
 
 	expression();
+
+	if (currentToken.lexeme() == ";") {
+		cout << "<Assign> -> <Identifier> := <Expression> ;" << endl;
+		newToken();
+		cout << currentToken << endl;
+	}
+	else { errorMessage(";"); }
 }
 
 void SyntaxAnalyzer::ifProcedure() {
@@ -476,16 +419,28 @@ void SyntaxAnalyzer::returnProcPrime() {
 		|| currentToken.type() == "integer" || currentToken.lexeme() == "("
 		|| currentToken.type() == "real" || currentToken.lexeme() == "true"
 		|| currentToken.type() == "false") {
-		cout << "<Return>' -> <Expression>" << endl;
+
+		cout << "<Return>' -> <Expression> ;" << endl;
+		expression();
+
+		if (currentToken.lexeme() == ";") {
+			cout << "<Return> -> <Expression> ;" << endl;
+			newToken();
+			cout << currentToken << endl;
+		}
+		else { errorMessage(";"); }
 	}
-	else {
-		cout << "<Return>' -> <Empty>" << endl;
+	else if (currentToken.lexeme() == ";") {
+		cout << "<Return> -> ;" << endl;
+		newToken();
+		cout << currentToken << endl;
 	}
+	else { errorMessage(";"); }
 }
 
 void SyntaxAnalyzer::write() {
 	if (currentToken.lexeme() == "write") {
-		cout << "<Write> -> write ( <Expression> );" << endl;
+		cout << "<Write> -> write ( <Expression> ) ;" << endl;
 		newToken();
 		cout << currentToken << endl;
 	}
@@ -514,7 +469,7 @@ void SyntaxAnalyzer::write() {
 
 void SyntaxAnalyzer::read() {
 	if (currentToken.lexeme() == "read") {
-		cout << "<Read> -> read ( <IDs> );" << endl;
+		cout << "<Read> -> read ( <IDs> ) ;" << endl;
 		newToken();
 		cout << currentToken << endl;
 	}
@@ -678,7 +633,10 @@ void SyntaxAnalyzer::factor() {
 
 		primary();
 	}
-	else { primary(); }
+	else {
+		cout << "<Factor> -> <Primary>" << endl;
+		primary();
+	}
 }
 
 void SyntaxAnalyzer::primary() {
@@ -742,79 +700,6 @@ void SyntaxAnalyzer::primaryPrime() {
 		else { errorMessage("]"); }
 	}
 	else {
-		cout << "<Primary> -> <Empty>" << endl;
+		cout << "<Primary>' -> <Empty>" << endl;
 	}
 }
-
-//void SyntaxAnalyzer::fillNonTerminals() {
-//	symbols["Rat15F"] = NONTERMINAL;
-//	symbols["Opt Function Definitions"] = NONTERMINAL;
-//	symbols["Function Definitions"] = NONTERMINAL;
-//	symbols["Function"] = NONTERMINAL;
-//	symbols["Opt Parameter List"] = NONTERMINAL;
-//	symbols["Parameter List"] = NONTERMINAL;
-//	symbols["Parameter"] = NONTERMINAL;
-//	symbols["Qualifier"] = NONTERMINAL;
-//	symbols["Body"] = NONTERMINAL;
-//	symbols["Opt Declaration List"] = NONTERMINAL;
-//	symbols["Declaration List"] = NONTERMINAL;
-//	symbols["Declaration"] = NONTERMINAL;
-//	symbols["IDs"] = NONTERMINAL;
-//	symbols["Statement List"] = NONTERMINAL;
-//	symbols["Statement"] = NONTERMINAL;
-//	symbols["Compound"] = NONTERMINAL;
-//	symbols["Assign"] = NONTERMINAL;
-//	symbols["If"] = NONTERMINAL;
-//	symbols["Return"] = NONTERMINAL;
-//	symbols["Write"] = NONTERMINAL;
-//	symbols["Read"] = NONTERMINAL;
-//	symbols["While"] = NONTERMINAL;
-//	symbols["Condition"] = NONTERMINAL;
-//	symbols["Relop"] = NONTERMINAL;
-//	symbols["Expression"] = NONTERMINAL;
-//	symbols["Expression Prime"] = NONTERMINAL;
-//	symbols["Term"] = NONTERMINAL;
-//	symbols["Term Prime"] = NONTERMINAL;
-//	symbols["Factor"] = NONTERMINAL;
-//	symbols["Primary"] = NONTERMINAL;
-//}
-//
-//void SyntaxAnalyzer::fillTerminals() {
-//	symbols["identifier"] = NONTERMINAL;
-//	symbols["real"] = NONTERMINAL;
-//	symbols["integer"] = NONTERMINAL;
-//	symbols["="] = NONTERMINAL;
-//	symbols["!="] = NONTERMINAL;
-//	symbols["<"] = NONTERMINAL;
-//	symbols[">"] = NONTERMINAL;
-//	symbols["=>"] = NONTERMINAL;
-//	symbols["<="] = NONTERMINAL;
-//	symbols["*"] = NONTERMINAL;
-//	symbols["-"] = NONTERMINAL;
-//	symbols["+"] = NONTERMINAL;
-//	symbols["/"] = NONTERMINAL;
-//	symbols[":="] = NONTERMINAL;
-//	symbols["boolean"] = NONTERMINAL;
-//	symbols["real"] = NONTERMINAL;
-//	symbols["function"] = NONTERMINAL;
-//	symbols["int"] = NONTERMINAL;
-//	symbols["if"] = NONTERMINAL;
-//	symbols["endif"] = NONTERMINAL;
-//	symbols["else"] = NONTERMINAL;
-//	symbols["return"] = NONTERMINAL;
-//	symbols["write"] = NONTERMINAL;
-//	symbols["read"] = NONTERMINAL;
-//	symbols["while"] = NONTERMINAL;
-//	symbols["do"] = NONTERMINAL;
-//	symbols["true"] = NONTERMINAL;
-//	symbols["false"] = NONTERMINAL;
-//	symbols["@@"] = NONTERMINAL;
-//	symbols["["] = NONTERMINAL;
-//	symbols["]"] = NONTERMINAL;
-//	symbols["("] = NONTERMINAL;
-//	symbols[")"] = NONTERMINAL;
-//	symbols["{"] = NONTERMINAL;
-//	symbols["}"] = NONTERMINAL;
-//	symbols[";"] = NONTERMINAL;
-//	symbols[","] = NONTERMINAL;
-//}
