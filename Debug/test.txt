@@ -1,0 +1,19 @@
+/* this is comment for this sample cde which
+converts F to C */
+
+function convert [fahr int]
+{
+	return 5*(fahr-32)/9;
+}
+
+@@
+ int low,high,step;  /***declarations***/
+@@
+ read(low,high,step);
+ while(low<high) do
+   { write(low);
+     write(convert[low]);
+     low := low + step;
+   }
+/*
+*/

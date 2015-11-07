@@ -1,77 +1,9 @@
-﻿Build started 11/6/2015 11:52:57 PM.
+﻿Build started 11/7/2015 2:22:33 PM.
      1>Project "C:\Users\Misha\Desktop\school\323 Compilers\P1 Lexer\Compiler\Lexer P1.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Lexer P1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt SyntaxAnalyzer.cpp main.cpp
-         main.cpp
-         SyntaxAnalyzer.cpp
-     1>c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(1363): warning C4503: '__LINE__Var': decorated name length exceeded, name was truncated
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(1363): note: while compiling class template member function 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>>>> std::vector<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>,std::_Wrap_alloc<std::allocator<_Other>>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>>>>,unsigned int,const std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>> &)'
-                 with
-                 [
-                     _Kty=std::string,
-                     _Ty=std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>,
-                     _Other=std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const std::string,std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>>>>>
-                 ]
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(1353): note: see reference to function template instantiation 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>>>> std::vector<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>,std::_Wrap_alloc<std::allocator<_Other>>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>>>>,unsigned int,const std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>> &)' being compiled
-                 with
-                 [
-                     _Kty=std::string,
-                     _Ty=std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>,
-                     _Other=std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const std::string,std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>>>>>
-                 ]
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\xhash(908): note: see reference to class template instantiation 'std::vector<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>,std::_Wrap_alloc<std::allocator<_Other>>>' being compiled
-                 with
-                 [
-                     _Kty=std::string,
-                     _Ty=std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>,
-                     _Other=std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const std::string,std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>>>>>
-                 ]
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\unordered_map(86): note: see reference to class template instantiation 'std::_Hash<std::_Umap_traits<_Kty,_Ty,std::_Uhash_compare<_Kty,_Hasher,_Keyeq>,_Alloc,false>>' being compiled
-                 with
-                 [
-                     _Kty=std::string,
-                     _Ty=std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>,
-                     _Hasher=std::hash<std::string>,
-                     _Keyeq=std::equal_to<std::string>,
-                     _Alloc=std::allocator<std::pair<const std::string,std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>>>
-                 ]
-         c:\users\misha\desktop\school\323 compilers\p1 lexer\compiler\syntaxanalyzer.h(16): note: see reference to class template instantiation 'std::unordered_map<std::string,std::unordered_map<std::string,std::list<std::string,std::allocator<_Ty>>,std::hash<_Kty>,std::equal_to<_Ty>,std::allocator<std::pair<const _Kty,std::list<_Ty,std::allocator<_Ty>>>>>,std::hash<_Kty>,std::equal_to<_Ty>,std::allocator<std::pair<const _Kty,std::unordered_map<_Kty,std::list<_Ty,std::allocator<_Ty>>,std::hash<_Kty>,std::equal_to<_Ty>,std::allocator<std::pair<const _Kty,std::list<_Ty,std::allocator<_Ty>>>>>>>>' being compiled
-                 with
-                 [
-                     _Ty=std::string,
-                     _Kty=std::string
-                 ]
-     1>c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(1684): warning C4503: '__LINE__Var': decorated name length exceeded, name was truncated
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(1684): note: while compiling class template member function 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>>>> std::vector<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>,std::_Wrap_alloc<std::allocator<_Other>>>::_Insert_n(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>>>>,unsigned int,const std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>> &)'
-                 with
-                 [
-                     _Kty=std::string,
-                     _Ty=std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>,
-                     _Other=std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const std::string,std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>>>>>
-                 ]
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(1364): note: see reference to function template instantiation 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>>>> std::vector<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>,std::_Wrap_alloc<std::allocator<_Other>>>::_Insert_n(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>>>>,unsigned int,const std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>> &)' being compiled
-                 with
-                 [
-                     _Kty=std::string,
-                     _Ty=std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>,
-                     _Other=std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const std::string,std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>>>>>
-                 ]
-     1>c:\users\misha\desktop\school\323 compilers\p1 lexer\compiler\syntaxanalyzer.cpp(706): warning C4503: 'std::vector<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>,std::_Wrap_alloc<std::allocator<_Other>>>::insert': decorated name length exceeded, name was truncated
-                 with
-                 [
-                     _Kty=std::string,
-                     _Ty=std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>,
-                     _Other=std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const std::string,std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>>>>>
-                 ]
-     1>c:\users\misha\desktop\school\323 compilers\p1 lexer\compiler\syntaxanalyzer.cpp(706): warning C4503: 'std::vector<std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const _Kty,_Ty>>>>,std::_Wrap_alloc<std::allocator<_Other>>>::_Insert_n': decorated name length exceeded, name was truncated
-                 with
-                 [
-                     _Kty=std::string,
-                     _Ty=std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>,
-                     _Other=std::_List_unchecked_iterator<std::_List_val<std::_List_simple_types<std::pair<const std::string,std::unordered_map<std::string,std::list<std::string,std::allocator<std::string>>,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::pair<const std::string,std::list<std::string,std::allocator<std::string>>>>>>>>>
-                 ]
-         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt LexicalAnalyzer.cpp
+         LexicalAnalyzer.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Misha\Desktop\school\323 Compilers\P1 Lexer\Compiler\Debug\Compiler.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Misha\Desktop\school\323 Compilers\P1 Lexer\Compiler\Debug\Compiler.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Misha\Desktop\school\323 Compilers\P1 Lexer\Compiler\Debug\Compiler.lib" /MACHINE:X86 Debug\Fsm.obj
          Debug\LexicalAnalyzer.obj
@@ -83,4 +15,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.41
+Time Elapsed 00:00:03.03

@@ -57,7 +57,7 @@ void SyntaxAnalyzer::rat15F() {
 	statementList();
 
 	if (currentToken.type() == "eof") {
-		cout << "Completed. Syntax correct!" << endl;
+		cout << "\n\nCompleted. Syntax correct!" << endl;
 	}
 	else {
 		cout << "Error. No more tokens were expected." << endl;

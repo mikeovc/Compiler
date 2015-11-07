@@ -64,7 +64,7 @@ Token LexicalAnalyzer::lexer() {
 
 // Return true if character is white space
 bool LexicalAnalyzer::isWhiteSpace(const size_t i) {
-	if (text[i] == ' ' || text[i] == '\t' || text[i] == '\n') {
+	if (text[i] == ' ' || text[i] == '\t' || text[i] == '\n' || text[i] == '\r') {
 		return true;
 	}
 	return false;
