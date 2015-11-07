@@ -31,6 +31,7 @@ Token LexicalAnalyzer::lexer() {
 			i = text.find("*/");
 			i = (i == string::npos) ? text.size() : i += 2;
 			text.erase(0, i);
+			i = 0;
 		}
 
 		// tokenize seperators and operators with more than one character

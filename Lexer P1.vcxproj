@@ -14,6 +14,7 @@
     <ProjectGuid>{E8112973-F1D7-4E8B-8DDA-F5899DB04399}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>LexerP1</RootNamespace>
+    <ProjectName>Compiler</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -81,11 +82,13 @@
     <ClCompile Include="Fsm.cpp" />
     <ClCompile Include="LexicalAnalyzer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SyntaxAnalyzer.cpp" />
     <ClCompile Include="Token.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fsm.h" />
     <ClInclude Include="LexicalAnalyzer.h" />
+    <ClInclude Include="SyntaxAnalyzer.h" />
     <ClInclude Include="Token.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -15,5 +15,6 @@ function convert [fahr int]
    { write(low);
      write(convert[low]);
      low = low + step;
-/*   }
+   }
+/*
 */

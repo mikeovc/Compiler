@@ -15,6 +15,7 @@ int main() {
 	list<Token> tokens;
 	LexicalAnalyzer la(code);
 
+	// Tokenize the entire text (lines 18 - 28)
 	while (!la.analyzed()) {
 		tokens.push_back(la.lexer());
 	}
@@ -25,6 +26,9 @@ int main() {
 	for (auto it = tokens.begin(); it != tokens.end(); ++it) {
 		typeSetter.identify(*it);
 	}
+	
+
+
 
 	display(tokens);
 
@@ -57,10 +61,11 @@ string getText() {
 	return fullText;
 }
 
+// Display Tokens for Project 1
 void display(list<Token>& items) {
 	cout << "token                lexeme\n\n";
 	for (auto it = items.begin(); it != items.end(); ++it) {
-		cout << left << setw(21) << it->type() << setw(20) << it->lexeme() << endl;
+		cout << *it << endl;
 	}
 	cout << endl;
 }
