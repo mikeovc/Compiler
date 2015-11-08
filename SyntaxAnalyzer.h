@@ -1,3 +1,5 @@
+/////////////////////SyntaxAnalyzer.h
+
 #ifndef __SYNTAX_ANALYZER__
 #define __SYNTAX_ANALYZER__
 #include <iostream>
@@ -8,12 +10,6 @@
 using namespace std;
 class SyntaxAnalyzer {
 private:
-	unordered_map<string, int> symbols;
-	list<string> nonTerminals;
-	list<string> terminals;
-	unordered_map<string, list<int>> ruleSet;
-	// 2 dimensional map for parse table:
-	unordered_map<string, unordered_map<string, list<string>>> parseTable;
 	list<Token> tokens;
 	Token currentToken;
 
