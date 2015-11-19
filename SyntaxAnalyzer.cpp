@@ -144,9 +144,14 @@ void SyntaxAnalyzer::paramList() {
 }
 
 void SyntaxAnalyzer::paramListPrime() {
-	if (currentToken.type() == "identifier") {
-		cout << "<Parameter List>' -> <Paramter List>" << endl;
-		paramList();
+	if (currentToken.lexeme() == ",") {
+		cout << "<Parameter List>' -> , <Paramter List>" << endl;
+		newToken();
+		if (currentToken.type() == "identifier") {
+			cout << "<Parameter List>' -> , <Parameter List>" << endl;
+			paramList();
+		}
+		else { errorMessage("<Identifier>"); }
 	}
 	else {
 		cout << "<Parameter List>' -> <Empty>" << endl;

@@ -1,7 +1,7 @@
 /* this is comment for this sample cde which
 converts F to C */
 
-function convert [fahr int]
+function convert [fahr int, rhaf real]
 {
 	return 5*(fahr-32)/9;
 }
