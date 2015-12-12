@@ -2,7 +2,8 @@
 # define __SYMBOL_HANDLER__
 #include <iostream>
 #include <string>
-#include <map>
+#include <unordered_map>
+#include <vector>
 
 struct Symbol {
 	Symbol(std::string type="", int location=0)
@@ -12,9 +13,10 @@ struct Symbol {
 };
 
 class SymbolHandler {
-private:
-	std::map<std::string, Symbol> _table;
+public:
+	std::unordered_map<std::string, Symbol> _table;
 	int _address;
+	std::vector<std::string> _insertOrder;
 
 public:
 	SymbolHandler();

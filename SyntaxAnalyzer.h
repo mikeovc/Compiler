@@ -41,8 +41,8 @@ private:
 	void declList();
 	void declListPrime();
 	void decl();
-	void ids();
-	void idsPrime();
+	void ids(const string& type = "");
+	void idsPrime(const string& type = "");
 	void statementList();
 	void stateListPrime();
 	void statement();

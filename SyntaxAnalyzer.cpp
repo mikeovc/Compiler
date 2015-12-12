@@ -30,6 +30,7 @@ void SyntaxAnalyzer::addToTable(const string& id, const string& type) {
 	if (table.has(id)) {
 		cout << "Error: Identifier " << id << " already declared." << endl;
 		system("pause");
+		exit(EXIT_FAILURE);
 	}
 	else {
 		table.add(id, type);
@@ -240,28 +241,32 @@ void SyntaxAnalyzer::declListPrime() {
 
 void SyntaxAnalyzer::decl() {
 	cout << "<Declaration> -> <Qualifier> <IDs>" << endl;
+	string type = currentToken.lexeme();
 	qualifier();
-	ids();
+	ids(type);
 }
 
-void SyntaxAnalyzer::ids() {
+void SyntaxAnalyzer::ids(const string& type) {
 	if (currentToken.type() == "identifier") {
 		cout << "<IDs> -> <Identifier> <IDs>'" << endl;
+		if (type != "") {
+			addToTable(currentToken.lexeme(), type);
+		}
 		newToken();
 	}
 	else { errorMessage("<Identifier>"); }
 
-	idsPrime();
+	idsPrime(type);
 }
 
-void SyntaxAnalyzer::idsPrime() {
+void SyntaxAnalyzer::idsPrime(const string& type) {
 	if (currentToken.lexeme() == ",") {
 		cout << "<IDs>' -> , <IDs>" << endl;
 		newToken();
 
 		if (currentToken.type() == "identifier") {
 			cout << "<IDs>' -> , <IDs>" << endl;
-			ids();
+			ids(type);
 		}
 		else { errorMessage("<Identifier>"); }
 	}
