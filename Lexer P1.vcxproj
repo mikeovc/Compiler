@@ -82,12 +82,14 @@
     <ClCompile Include="Fsm.cpp" />
     <ClCompile Include="LexicalAnalyzer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SymbolHandler.cpp" />
     <ClCompile Include="SyntaxAnalyzer.cpp" />
     <ClCompile Include="Token.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fsm.h" />
     <ClInclude Include="LexicalAnalyzer.h" />
+    <ClInclude Include="SymbolHandler.h" />
     <ClInclude Include="SyntaxAnalyzer.h" />
     <ClInclude Include="Token.h" />
   </ItemGroup>

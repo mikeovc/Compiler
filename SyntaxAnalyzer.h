@@ -6,12 +6,14 @@
 #include <list>
 #include <unordered_map>
 #include "Token.h"
+#include "SymbolHandler.h"
 
 using namespace std;
 class SyntaxAnalyzer {
 private:
 	list<Token> tokens;
 	Token currentToken;
+	SymbolHandler table;
 
 public:
 	SyntaxAnalyzer(list<Token> t);
@@ -21,6 +23,7 @@ public:
 private:
 	void newToken();
 	void errorMessage(const string& expected);
+	void addToTable(const string& id, const string& type);
 
 	// Grammatical procedures:
 	void rat15F();

@@ -26,6 +26,17 @@ void SyntaxAnalyzer::errorMessage(const string& expected) {
 	system("pause");
 }
 
+void SyntaxAnalyzer::addToTable(const string& id, const string& type) {
+	if (table.has(id)) {
+		cout << "Error: Identifier " << id << " already declared." << endl;
+		system("pause");
+	}
+	else {
+		table.add(id, type);
+		cout << table;
+	}
+}
+
 void SyntaxAnalyzer::rat15F() {
 	cout << endl << currentToken << endl;
 
@@ -102,6 +113,7 @@ void SyntaxAnalyzer::fun() {
 	if (currentToken.type() == "identifier") {
 		cout << "<Function> -> function <Identifier> [ <Opt Parameter List> ]\n"
 			<< "\t<Opt Declaration List>" "<Body>" << endl;
+		addToTable(currentToken.lexeme(), "function");
 		newToken();
 	}
 	else { errorMessage("<Identifier>"); }
@@ -160,7 +172,9 @@ void SyntaxAnalyzer::paramListPrime() {
 
 void SyntaxAnalyzer::param() {
 	cout << "<Parameter> -> <IDs> <Qualifier>" << endl;
+	string id = currentToken.lexeme();
 	ids();
+	addToTable(id, currentToken.lexeme()); // currentToken is a qualifier (int bool or real)
 	qualifier();
 }
 
