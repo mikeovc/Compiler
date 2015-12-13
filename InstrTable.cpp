@@ -19,7 +19,7 @@ void InstrTable::backPatch(int jumpAddr) {
 void InstrTable::backPatch() {
 	int addr = _jumpStack.top();
 	_jumpStack.pop();
-	_table[addr].oprnd = _instAdress;
+	_table[--addr].oprnd = _instAdress;
 }
 
 void InstrTable::pushJumpStack(int instrAddress) {

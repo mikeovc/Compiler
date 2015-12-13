@@ -11,6 +11,10 @@ SyntaxAnalyzer::SyntaxAnalyzer(list<Token> t) {
 
 void SyntaxAnalyzer::analyze() {
 	rat15F();
+	cout << "-----SYMBOL TABLE-----" << endl;
+	cout << table << endl;
+	cout << "---INSTRUCTION TABLE---" << endl;
+	cout << instTable << endl;
 }
 
 void SyntaxAnalyzer::newToken() {
@@ -149,11 +153,17 @@ void SyntaxAnalyzer::decl() {
 	ids(type);
 }
 
-void SyntaxAnalyzer::ids(const string& type) {
+void SyntaxAnalyzer::ids(const string& type, bool fromRead) {
 	if (currentToken.type() == "identifier") {
 		cout << "<IDs> -> <Identifier> <IDs>'" << endl;
 		if (type != "") {
 			addToTable(currentToken.lexeme(), type);
+		}
+		if (fromRead) {
+			checkIdExistence(currentToken.lexeme());
+			instTable.genInstr("STDIN", NIL);
+			int addr = table.getAddress(currentToken.lexeme());
+			instTable.genInstr("POPM", addr);
 		}
 		newToken();
 	}
@@ -162,14 +172,14 @@ void SyntaxAnalyzer::ids(const string& type) {
 	idsPrime(type);
 }
 
-void SyntaxAnalyzer::idsPrime(const string& type) {
+void SyntaxAnalyzer::idsPrime(const string& type, bool fromRead) {
 	if (currentToken.lexeme() == ",") {
 		cout << "<IDs>' -> , <IDs>" << endl;
 		newToken();
 
 		if (currentToken.type() == "identifier") {
 			cout << "<IDs>' -> , <IDs>" << endl;
-			ids(type);
+			ids(type, fromRead);
 		}
 		else { errorMessage("<Identifier>"); }
 	}
@@ -258,7 +268,6 @@ void SyntaxAnalyzer::assign() {
 			expression();
 			int address = table.getAddress(save);
 			instTable.genInstr("POPM", address);
-			cout << instTable;
 		}
 		else { errorMessage(":="); }
 	}
@@ -289,10 +298,20 @@ void SyntaxAnalyzer::ifProcedure() {
 		cout << "<If> -> if ( <Condition> ) <Statement> <If>'" << endl;
 		newToken();
 	}
+	else { errorMessage(")"); }
 	
 	statement();
 
+	int address = instTable.instrAddress();
+	instTable.genInstr("JUMP", NIL);
+	instTable.backPatch();
+	instTable.genInstr("LABEL", NIL);
+	instTable.pushJumpStack(address);
+
 	ifProcPrime();
+
+	instTable.backPatch();
+	instTable.genInstr("LABEL", NIL);
 }
 
 void SyntaxAnalyzer::ifProcPrime() {
@@ -359,6 +378,7 @@ void SyntaxAnalyzer::write() {
 	}
 
 	expression();
+	instTable.genInstr("STDOUT", NIL);
 
 	if (currentToken.lexeme() == ")") {
 		cout << "<Write> -> write ( <Expression> );" << endl;
@@ -384,8 +404,7 @@ void SyntaxAnalyzer::read() {
 	}
 	else { errorMessage("("); }
 
-	checkIdExistence(currentToken.lexeme());
-	ids();
+	ids("", true);
 
 	if (currentToken.lexeme() == ")") {
 		cout << "<Read> -> read ( <IDs> );" << endl;
@@ -429,7 +448,6 @@ void SyntaxAnalyzer::whileProcedure() {
 	statement();
 	instTable.genInstr("JUMP", address);
 	instTable.backPatch();
-	cout << instTable;
 }
 
 void SyntaxAnalyzer::condition() {
@@ -470,7 +488,6 @@ void SyntaxAnalyzer::condition() {
 		instTable.pushJumpStack();
 		instTable.genInstr("JUMPZ", NIL);
 	}
-	cout << instTable << endl;
 }
 
 void SyntaxAnalyzer::relop() {

@@ -1,4 +1,4 @@
-﻿Build started 12/13/2015 2:50:22 AM.
+﻿Build started 12/13/2015 2:13:39 PM.
      1>Project "C:\Users\Misha\Desktop\school\323 Compilers\Compiler\Compiler\Lexer P1.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Lexer P1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      1>ClCompile:
@@ -17,4 +17,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.14
+Time Elapsed 00:00:01.10

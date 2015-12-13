@@ -7,5 +7,9 @@
  c := 9;
  x := a + b * c;
 
+ if (i < a) { a := b; }
+ else { b := c; }
+ endif
+
  while(i<a) do
    i := i + 1;

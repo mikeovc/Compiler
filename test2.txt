@@ -1,12 +1,11 @@
-
 @@
- int low,high,step,abc;  /***declarations***/
-@@
- read(low,high,step);
- while(low<high) do
-   { write(low);
-     abc := 5*(-fahr-32)/9;
-     low := low + step;
-   }
-/*
-*/
+    int  i,max,sum;
+ @@
+    sum := 0;
+    i := 1;
+    read( max);
+    while (i <  max) do {
+          sum := sum + i;
+          i  := i + 1; 
+     }
+     write (sum+max);
