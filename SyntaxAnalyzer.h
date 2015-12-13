@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include "Token.h"
 #include "SymbolHandler.h"
+#include "InstrTable.h"
 
 using namespace std;
 class SyntaxAnalyzer {
@@ -14,6 +15,7 @@ private:
 	list<Token> tokens;
 	Token currentToken;
 	SymbolHandler table;
+	InstrTable instTable;
 
 public:
 	SyntaxAnalyzer(list<Token> t);
@@ -24,17 +26,10 @@ private:
 	void newToken();
 	void errorMessage(const string& expected);
 	void addToTable(const string& id, const string& type);
+	void checkIdExistence(const string& id);
 
 	// Grammatical procedures:
 	void rat15F();
-	void optFunDefs();	// fun = function; defs = definitions
-	void funDefs();
-	void funDefsPrime();
-	void fun();
-	void optParamList();
-	void paramList();
-	void paramListPrime();
-	void param();
 	void qualifier();
 	void body();
 	void optDeclList();
@@ -62,7 +57,7 @@ private:
 	void term();
 	void termPrime();
 	void factor();
-	void primary();
+	void primary(bool isNegative = false);
 	void primaryPrime();
 };
 

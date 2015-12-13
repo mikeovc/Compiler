@@ -13,7 +13,7 @@ void Fsm::identify(Token& t) {
 		if (isIdentifier(t.lexeme())) { t.type("identifier"); }
 		else if (isRealNumber(t.lexeme())) { t.type("real"); }
 		else if (isInteger(t.lexeme())) { t.type("integer"); }
-		else { t.type("uknown"); }
+		else { t.type("unknown"); }
 	}
 }
 

@@ -1,19 +1,31 @@
-/* this is comment for this sample cde which
-converts F to C */
-
-function convert [fahr int, rhaf real]
-{
-	return 5*(fahr-32)/9;
-}
-
 @@
- int low,high,step;  /***declarations***/
+ int i,max,sum;
 @@
- read(low,high,step);
- while(low<high) do
-   { write(low);
-     write(convert[low]);
-     low := low + step;
+ sum := 0;
+ i := 1;
+ read(max);
+
+ while (i < max) do
+	sum := sum + i;
+	i := i + 1;
+
+write(sum+max);
+
+/* 
+
+test if statemetns, bools
+
+ if (high <= step)
+   { write(low);}
+ endif
+
+ if (high = true)
+   { 
+     read(low);
+     abc := 3;
    }
-/*
+ else
+   return 5.23;
+ endif
+
 */

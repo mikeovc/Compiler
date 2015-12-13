@@ -1,31 +1,11 @@
-/* this is comment for this sample cde which
-converts F to C */
-
-function convert [fahr int]
-{
-	return 5*(-fahr-32)/9;
-}
-
-function convert [fahr int]
-{
-	return abc[a,b];
-}
 
 @@
- int low,high,step;  /***declarations***/
+ int i, a, b, c, x;  /***declarations***/
 @@
+ a := 5;
+ b := 7;
+ c := 9;
+ x := a + b * c;
 
- if (high <= step)
-   { write(low);}
- endif
-
- if (high = true)
-   { 
-     read(low);
-     abc := 3;
-   }
- else
-   return 5.23;
- endif
-/*
-*/
+ while(i<a) do
+   i := i + 1;

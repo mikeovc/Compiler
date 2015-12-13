@@ -38,16 +38,23 @@ void SyntaxAnalyzer::addToTable(const string& id, const string& type) {
 	}
 }
 
+void SyntaxAnalyzer::checkIdExistence(const string& id) {
+	if (!table.has(id)) {
+		cout << "Identifier " << id << " undefined." << endl;
+		system("pause");
+		exit(EXIT_FAILURE);
+	}
+}
+
 void SyntaxAnalyzer::rat15F() {
 	cout << endl << currentToken << endl;
 
-	cout << "<Rat15F> -> <Opt Function Definitions> \n\t\t@@ <Opt Declaration List> \n"
-		<< "\t\t@@ <Statement List>" << endl;
-	optFunDefs();
+	//cout << "<Rat15F> -> <Opt Function Definitions> \n\t\t@@ <Opt Declaration List> \n"
+	//	<< "\t\t@@ <Statement List>" << endl;
+	//optFunDefs();
 
 	if (currentToken.lexeme() == "@@") {
-		cout << "<Rat15F> -> <Opt Function Definitions> \n\t\t@@ <Opt Declaration List> \n"
-			<< "\t\t@@ <Statement List>" << endl;
+		cout << "<Rat15F> -> @@ <Opt Declaration List> @@ <Statement List>" << endl;
 		newToken();
 	}
 	else {
@@ -58,8 +65,7 @@ void SyntaxAnalyzer::rat15F() {
 	optDeclList();
 
 	if (currentToken.lexeme() == "@@") {
-		cout << "<Rat15F> -> <Opt Function Definitions> \n\t\t@@ <Opt Declaration List> \n"
-			<< "\t\t@@ <Statement List>" << endl;
+		cout << "<Rat15F> -> @@ <Opt Declaration List> @@ <Statement List>" << endl;
 		newToken();
 	}
 	else {
@@ -77,115 +83,12 @@ void SyntaxAnalyzer::rat15F() {
 	}
 }
 
-void SyntaxAnalyzer::optFunDefs() {
-	if (currentToken.lexeme() == "function") {
-		cout << "<Opt Function Definitions> -> <Function Definitions>" << endl;
-		funDefs();
-	}
-	else {
-		cout << "<Opt Function Definitions> -> <Empty>" << endl;
-	}
-}
-
-void SyntaxAnalyzer::funDefs() {
-	cout << "<Function Definitions> -> <Function> <Function Definitons>'" << endl;
-	fun();
-	funDefsPrime();
-}
-
-void SyntaxAnalyzer::funDefsPrime() {
-	if (currentToken.lexeme() == "function") {
-		cout << "<Function Definitions>' -> <Function Definitions>" << endl;
-		funDefs();
-	}
-	else {
-		cout << "<Function Definitions>' -> <Empty>" << endl;
-	}
-}
-
-void SyntaxAnalyzer::fun() {
-	if (currentToken.lexeme() == "function") {
-		cout << "<Function> -> function <Identifier> [ <Opt Parameter List> ]\n"
-			<< "\t\t<Opt Declaration List>" "<Body>" << endl;
-		newToken();
-	}
-	else { errorMessage("function"); }
-
-	if (currentToken.type() == "identifier") {
-		cout << "<Function> -> function <Identifier> [ <Opt Parameter List> ]\n"
-			<< "\t<Opt Declaration List>" "<Body>" << endl;
-		addToTable(currentToken.lexeme(), "function");
-		newToken();
-	}
-	else { errorMessage("<Identifier>"); }
-
-	if (currentToken.lexeme() == "[") {
-		cout << "<Function> -> function <Identifier> [ <Opt Parameter List> ]\n"
-			<< "\t<Opt Declaration List>" "<Body>" << endl;
-		newToken();
-	}
-	else { errorMessage("["); }
-
-	optParamList();
-
-	if (currentToken.lexeme() == "]") {
-		cout << "<Function> -> function <Identifier> [ <Opt Parameter List> ]\n"
-			<< "\t<Opt Declaration List>" "<Body>" << endl;
-		newToken();
-	}
-	else { errorMessage("]"); }
-
-	optDeclList();
-
-	body();
-}
-
-void SyntaxAnalyzer::optParamList() {
-	if (currentToken.type() == "identifier") {
-		cout << "<Opt Parameter List> -> <Parameter List>" << endl;
-		paramList();
-	}
-	else {
-		cout << "<Opt Paramter List> -> <Empty>" << endl;
-	}
-}
-
-void SyntaxAnalyzer::paramList() {
-	cout << "<Parameter List> -> <Parameter> <Parameter List>'" << endl;
-	param();
-	paramListPrime();
-}
-
-void SyntaxAnalyzer::paramListPrime() {
-	if (currentToken.lexeme() == ",") {
-		cout << "<Parameter List>' -> , <Paramter List>" << endl;
-		newToken();
-		if (currentToken.type() == "identifier") {
-			cout << "<Parameter List>' -> , <Parameter List>" << endl;
-			paramList();
-		}
-		else { errorMessage("<Identifier>"); }
-	}
-	else {
-		cout << "<Parameter List>' -> <Empty>" << endl;
-	}
-}
-
-void SyntaxAnalyzer::param() {
-	cout << "<Parameter> -> <IDs> <Qualifier>" << endl;
-	string id = currentToken.lexeme();
-	ids();
-	addToTable(id, currentToken.lexeme()); // currentToken is a qualifier (int bool or real)
-	qualifier();
-}
-
 void SyntaxAnalyzer::qualifier() {
-	if (currentToken.lexeme() == "int" || currentToken.lexeme() == "boolean"
-		|| currentToken.lexeme() == "real") {
+	if (currentToken.lexeme() == "int" || currentToken.lexeme() == "boolean") {
 		cout << "<Qualifier> -> " << currentToken.lexeme() << endl;
 		newToken();
 	}
-	else { errorMessage("int\", \"boolean\", or \"real"); }
+	else { errorMessage("int\" or \"boolean\""); }
 }
 
 void SyntaxAnalyzer::body() {
@@ -345,16 +248,21 @@ void SyntaxAnalyzer::compound() {
 void SyntaxAnalyzer::assign() {
 	if (currentToken.type() == "identifier") {
 		cout << "<Assign> -> <Identifier> := <Expression> ;" << endl;
+
+		checkIdExistence(currentToken.lexeme());
+		string save = currentToken.lexeme();
 		newToken();
+
+		if (currentToken.lexeme() == ":=") {
+			newToken();
+			expression();
+			int address = table.getAddress(save);
+			instTable.genInstr("POPM", address);
+			cout << instTable;
+		}
+		else { errorMessage(":="); }
 	}
 	else { errorMessage("<Identifier>"); }
-
-	if (currentToken.lexeme() == ":=") {
-		newToken();
-	}
-	else { errorMessage(":="); }
-
-	expression();
 
 	if (currentToken.lexeme() == ";") {
 		cout << "<Assign> -> <Identifier> := <Expression> ;" << endl;
@@ -476,6 +384,7 @@ void SyntaxAnalyzer::read() {
 	}
 	else { errorMessage("("); }
 
+	checkIdExistence(currentToken.lexeme());
 	ids();
 
 	if (currentToken.lexeme() == ")") {
@@ -491,8 +400,11 @@ void SyntaxAnalyzer::read() {
 }
 
 void SyntaxAnalyzer::whileProcedure() {
+	int address = NIL;
 	if (currentToken.lexeme() == "while") {
 		cout << "<While> -> while ( <Condition> ) do <Statement>" << endl;
+		address = instTable.instrAddress();
+		instTable.genInstr("LABEL", NIL);
 		newToken();
 	}
 	else { errorMessage("while"); }
@@ -515,18 +427,56 @@ void SyntaxAnalyzer::whileProcedure() {
 	else { errorMessage("do"); }
 
 	statement();
+	instTable.genInstr("JUMP", address);
+	instTable.backPatch();
+	cout << instTable;
 }
 
 void SyntaxAnalyzer::condition() {
 	cout << "<Condition> -> <Expression> <Relop> <Expression>" << endl;
 	expression();
+	string op = currentToken.lexeme();
 	relop();
 	expression();
+	if (op == "<") {
+		instTable.genInstr("LES", NIL);
+		instTable.pushJumpStack();
+		instTable.genInstr("JUMPZ", NIL);
+	}
+	else if (op == ">") {
+		instTable.genInstr("GRT", NIL);
+		instTable.pushJumpStack();
+		instTable.genInstr("JUMPZ", NIL);
+	}
+	else if (op == "<=") {
+		instTable.genInstr("LET", NIL);
+		instTable.pushJumpStack();
+		instTable.genInstr("JUMPZ", NIL);
+	}
+	else if (op == "=>") {
+		instTable.genInstr("GET", NIL);
+		instTable.pushJumpStack();
+		instTable.genInstr("JUMPZ", NIL);
+	}
+	else if (op == "=") {
+		instTable.genInstr("EQU", NIL);
+		instTable.pushJumpStack();
+		instTable.genInstr("JUMPZ", NIL);
+	}
+	else { // op == "!="
+		instTable.genInstr("EQU", NIL);
+		instTable.genInstr("PUSHI", -1);
+		instTable.genInstr("MUL", NIL);
+		instTable.pushJumpStack();
+		instTable.genInstr("JUMPZ", NIL);
+	}
+	cout << instTable << endl;
 }
 
 void SyntaxAnalyzer::relop() {
 	if (currentToken.lexeme() == "=") {
 		cout << "<Relop> -> =" << endl;
+
 		newToken();
 	}
 	else if (currentToken.lexeme() == "!=") {
@@ -539,6 +489,7 @@ void SyntaxAnalyzer::relop() {
 	}
 	else if (currentToken.lexeme() == "<") {
 		cout << "<Relop> -> <" << endl;
+
 		newToken();
 	}
 	else if (currentToken.lexeme() == "=>") {
@@ -562,8 +513,8 @@ void SyntaxAnalyzer::expressionPrime() {
 	if (currentToken.lexeme() == "+") {
 		cout << "<Expression>' -> + <Term> <Expression>'" << endl;
 		newToken();
-
 		term();
+		instTable.genInstr("ADD", NIL);
 		expressionPrime();
 	}
 	else if (currentToken.lexeme() == "-") {
@@ -571,6 +522,7 @@ void SyntaxAnalyzer::expressionPrime() {
 		newToken();
 
 		term();
+		instTable.genInstr("SUB", NIL);
 		expressionPrime();
 	}
 	else {
@@ -590,6 +542,7 @@ void SyntaxAnalyzer::termPrime() {
 		newToken();
 
 		factor();
+		instTable.genInstr("MUL", NIL);
 		termPrime();
 	}
 	else if (currentToken.lexeme() == "/") {
@@ -597,6 +550,7 @@ void SyntaxAnalyzer::termPrime() {
 		newToken();
 
 		factor();
+		instTable.genInstr("DIV", NIL);
 		termPrime();
 	}
 	else {
@@ -607,9 +561,9 @@ void SyntaxAnalyzer::termPrime() {
 void SyntaxAnalyzer::factor() {
 	if (currentToken.lexeme() == "-") {
 		cout << "<Factor> -> - <Primary>" << endl;
-		newToken();
 
-		primary();
+		newToken();
+		primary(true);
 	}
 	else {
 		cout << "<Factor> -> <Primary>" << endl;
@@ -617,15 +571,32 @@ void SyntaxAnalyzer::factor() {
 	}
 }
 
-void SyntaxAnalyzer::primary() {
+void SyntaxAnalyzer::primary(bool isNegative) {
 	if (currentToken.type() == "identifier") {
 		cout << "<Primary> -> <Identifier> <Primary>'" << endl;
+		checkIdExistence(currentToken.lexeme());
+		int address = table.getAddress(currentToken.lexeme());
+		if (isNegative) {
+			instTable.genInstr("PUSHI", 0);
+			instTable.genInstr("PUSHM", address);
+			instTable.genInstr("SUB", NIL);
+		}
+		else {
+			instTable.genInstr("PUSHM", address);
+		}
 		newToken();
 
 		primaryPrime();
 	}
 	else if (currentToken.type() == "integer") {
 		cout << "<Primary> -> <Integer>" << endl;
+		int address = table.getAddress(currentToken.lexeme());
+		if (isNegative) {
+			instTable.genInstr("PUSHI", -std::stoi(currentToken.lexeme()));
+		}
+		else {
+			instTable.genInstr("PUSHI", std::stoi(currentToken.lexeme()));
+		}
 		newToken();
 	}
 	else if (currentToken.lexeme() == "(") {
@@ -640,26 +611,24 @@ void SyntaxAnalyzer::primary() {
 		}
 		else { errorMessage(")"); }
 	}
-	else if (currentToken.type() == "real") {
-		cout << "<Primary> -> <Real>" << endl;
-		newToken();
-	}
 	else if (currentToken.lexeme() == "true") {
 		cout << "<Primary> -> true" << endl;
+		instTable.genInstr("PUSHI", 1);
 		newToken();
 	}
 	else if (currentToken.lexeme() == "false") {
 		cout << "<Primary> -> false" << endl;
+		instTable.genInstr("PUSHI", 0);
 		newToken();
 	}
-	else { errorMessage("<Identifier>, <Integer>, <Real>, \")\", \"true\", or \"false\""); }
+	else { errorMessage("<Identifier>, <Integer>, \")\", \"true\", or \"false\""); }
 }
 
 void SyntaxAnalyzer::primaryPrime() {
 	if (currentToken.lexeme() == "[") {
 		cout << "<Primary>' -> [ <IDs> ]" << endl;
 		newToken();
-
+		checkIdExistence(currentToken.lexeme());
 		ids();
 
 		if (currentToken.lexeme() == "]") {

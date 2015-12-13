@@ -80,6 +80,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Fsm.cpp" />
+    <ClCompile Include="InstrTable.cpp" />
     <ClCompile Include="LexicalAnalyzer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SymbolHandler.cpp" />
@@ -88,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fsm.h" />
+    <ClInclude Include="InstrTable.h" />
     <ClInclude Include="LexicalAnalyzer.h" />
     <ClInclude Include="SymbolHandler.h" />
     <ClInclude Include="SyntaxAnalyzer.h" />
