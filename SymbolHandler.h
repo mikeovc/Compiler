@@ -1,5 +1,7 @@
-# ifndef __SYMBOL_HANDLER__
-# define __SYMBOL_HANDLER__
+////////////////////// SymbolHandler.h
+
+#ifndef __SYMBOL_HANDLER__
+#define __SYMBOL_HANDLER__
 #include <iostream>
 #include <string>
 #include <map>

@@ -1,5 +1,6 @@
 @@
  int i,max,sum;
+ boolean q;
 @@
  sum := 0;
  i := 1;
@@ -11,21 +12,14 @@
 
 write(sum+max);
 
-/* 
-
-test if statemetns, bools
-
- if (high <= step)
-   { write(low);}
+ if (i <= 5)
+   { write(max); }
  endif
 
- if (high = true)
+ if (q = true)
    { 
-     read(low);
-     abc := 3;
+     read(i, sum);
+     max := 3;
    }
- else
-   return 5.23;
+ else { sum := 7 + 5; }
  endif
-
-*/

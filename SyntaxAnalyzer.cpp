@@ -11,6 +11,7 @@ SyntaxAnalyzer::SyntaxAnalyzer(list<Token> t) {
 
 void SyntaxAnalyzer::analyze() {
 	rat15F();
+	cout << endl;
 	cout << "-----SYMBOL TABLE-----" << endl;
 	cout << table << endl;
 	cout << "---INSTRUCTION TABLE---" << endl;
@@ -28,6 +29,7 @@ void SyntaxAnalyzer::errorMessage(const string& expected) {
 	cout << "Error after token \"" << currentToken.lexeme() 
 		<< "\". First of \"" << expected << "\" expected." << endl;
 	system("pause");
+	exit(EXIT_FAILURE);
 }
 
 void SyntaxAnalyzer::addToTable(const string& id, const string& type) {
@@ -38,7 +40,6 @@ void SyntaxAnalyzer::addToTable(const string& id, const string& type) {
 	}
 	else {
 		table.add(id, type);
-		cout << table;
 	}
 }
 
@@ -52,10 +53,6 @@ void SyntaxAnalyzer::checkIdExistence(const string& id) {
 
 void SyntaxAnalyzer::rat15F() {
 	cout << endl << currentToken << endl;
-
-	//cout << "<Rat15F> -> <Opt Function Definitions> \n\t\t@@ <Opt Declaration List> \n"
-	//	<< "\t\t@@ <Statement List>" << endl;
-	//optFunDefs();
 
 	if (currentToken.lexeme() == "@@") {
 		cout << "<Rat15F> -> @@ <Opt Declaration List> @@ <Statement List>" << endl;
@@ -112,8 +109,7 @@ void SyntaxAnalyzer::body() {
 }
 
 void SyntaxAnalyzer::optDeclList() {
-	if (currentToken.lexeme() == "int" || currentToken.lexeme() == "boolean"
-		|| currentToken.lexeme() == "real") {
+	if (currentToken.lexeme() == "int" || currentToken.lexeme() == "boolean") {
 		cout << "<Opt Declaration List> -> <Declaration List>" << endl;
 		declList();
 	}
@@ -136,8 +132,7 @@ void SyntaxAnalyzer::declList() {
 }
 
 void SyntaxAnalyzer::declListPrime() {
-	if (currentToken.lexeme() == "int" || currentToken.lexeme() == "boolean"
-		|| currentToken.lexeme() == "real") {
+	if (currentToken.lexeme() == "int" || currentToken.lexeme() == "boolean") {
 		cout << "<Declaration List>' -> <Declaration List>" << endl;
 		declList();
 	}
